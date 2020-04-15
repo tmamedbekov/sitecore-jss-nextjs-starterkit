@@ -37,7 +37,13 @@ export function getRouteData(route, language, querystringParams) {
       return fetchFromApi(route, fetchOptions);
     }
     // production mode (i.e. the app is "running" somewhere)
-    // Attempt to fetch layout data from disk, and fall back to Layout Service if disk fetch returns 404.
+
+    // In `serverless` mode, we want to fetch data from Layout Service.
+    if (process.env.BUILD_TARGET === 'serverless') {
+      return fetchFromApi(route, fetchOptions);
+    }
+    // Otherwise, assume we're in static site mode and attempt to fetch layout data
+    // from disk, and fall back to Layout Service if disk fetch returns 404.
     return fetchFromDisk(route, language).catch((err) => {
       if (err.response && err.response.status === 404) {
         return fetchFromApi(route, fetchOptions);
