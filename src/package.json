@@ -18,6 +18,7 @@
     "start-server": "node ./server/server.js",
     "jssconfig": "node ./scripts/create-scjssconfig.js",
     "build": "next build",
+    "build:netlify": "cross-env-shell NODE_ENV=production npm-run-all --serial jssconfig bootstrap:connected build",
     "start:watch-components": "node scripts/generate-component-factory.js --watch",
     "bootstrap:connected": "node scripts/bootstrap.js",
     "bootstrap:disconnected": "node scripts/bootstrap.js --disconnected",
