@@ -32,6 +32,7 @@ const nextConfig = {
   },
   env: {
     SITE_RUNTIME_ENV: process.env.SITE_RUNTIME_ENV || 'static',
+    BUILD_TARGET: process.env.BUILD_TARGET,
   },
   exportTrailingSlash: true,
   target: process.env.BUILD_TARGET || 'server',
