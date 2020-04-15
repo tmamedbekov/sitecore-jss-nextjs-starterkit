@@ -2,6 +2,7 @@
   base = "src/"
   publish = "public/"
   command = "npm run build:netlify"
+  functions = "functions/"
   
 [[plugins]]
 package = "netlify-plugin-cache-nextjs"
