@@ -1,7 +1,8 @@
 [build]
   base = "src/"
-  publish = "out/"
-  command = "npm run export"
+  publish = "public/"
+  command = "npm run build"
   
 [[plugins]]
 package = "netlify-plugin-cache-nextjs"
+

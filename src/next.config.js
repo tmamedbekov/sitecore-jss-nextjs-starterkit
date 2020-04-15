@@ -34,6 +34,7 @@ const nextConfig = {
     SITE_RUNTIME_ENV: process.env.SITE_RUNTIME_ENV || 'static',
   },
   exportTrailingSlash: true,
+  target: process.env.BUILD_TARGET || 'server',
 };
 
 module.exports = withPlugins(plugins, nextConfig);
