@@ -20,7 +20,7 @@ export function getRouteData(route, language, querystringParams) {
   // NextJs won't include the code in client compilation. Otherwise webpack will choke on the
   // inline `require` statement when building for the client.
   if (typeof window === 'undefined' && isExportProcess()) {
-    // export mode
+    // Export mode (i.e. the app is being exported to static files)
     // Fetch layout data from Layout Service, then write the data to disk.
 
     const { exportContextProvider } = require('./next-export-context-provider');
@@ -33,13 +33,14 @@ export function getRouteData(route, language, querystringParams) {
       })
       .then(() => apiData);
   } else if (process.env.NODE_ENV === 'production') {
-    if (process.env.SITE_RUNTIME_ENV !== 'static') {
-      return fetchFromApi(route, fetchOptions);
-    }
-    // production mode (i.e. the app is "running" somewhere)
+    // Production mode (i.e. the app is "running" somewhere)
 
-    // In `serverless` mode, we want to fetch data from Layout Service.
-    if (process.env.BUILD_TARGET === 'serverless') {
+    // If we're not in static site mode or if we're in `serverless` mode,
+    // we want to fetch data from a Layout Service endpoint.
+    if (
+      process.env.SITE_RUNTIME_ENV !== 'static' ||
+      process.env.NEXT_BUILD_TARGET === 'serverless'
+    ) {
       return fetchFromApi(route, fetchOptions);
     }
     // Otherwise, assume we're in static site mode and attempt to fetch layout data
@@ -51,8 +52,8 @@ export function getRouteData(route, language, querystringParams) {
       console.error(err);
     });
   } else {
-    // development mode
-    // Fetch layout data from Layout Service
+    // Development mode
+    // Fetch layout data from Layout Service endpoint
     return fetchFromApi(route, fetchOptions);
   }
 }

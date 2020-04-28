@@ -22,6 +22,8 @@ const plugins = [
   [withDynamicRoutes, { routeDefinitions }],
 ];
 
+const buildTarget = process.env.NEXT_BUILD_TARGET || 'server';
+
 const nextConfig = {
   serverRuntimeConfig: {
     sitecoreApiHost: process.env.UNIFORM_API_URL,
@@ -32,10 +34,10 @@ const nextConfig = {
   },
   env: {
     SITE_RUNTIME_ENV: process.env.SITE_RUNTIME_ENV || 'static',
-    BUILD_TARGET: process.env.BUILD_TARGET,
+    BUILD_TARGET: buildTarget,
   },
   exportTrailingSlash: true,
-  target: process.env.BUILD_TARGET || 'server',
+  target: buildTarget,
 };
 
 module.exports = withPlugins(plugins, nextConfig);
