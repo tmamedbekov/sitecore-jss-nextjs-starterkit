@@ -1,0 +1,5 @@
+/*  /.netlify/functions/router?_path=/:splat  200
+
+# Next-on-Netlify Redirects
+/404  /_next/pages/404.html  200
+/_error  /.netlify/functions/router?_path=/_error  200
