@@ -1,9 +1,14 @@
 [build]
   base = "src/"
-  publish = "public/"
+  publish = "out-serverless/"
   command = "npm run build:netlify"
   functions = "functions/"
   
 [[plugins]]
 package = "netlify-plugin-cache-nextjs"
+
+[dev]
+  command   = "serve out-serverless -p 3000"
+  functions = "functions"
+  publish   = "out-serverless"
 
