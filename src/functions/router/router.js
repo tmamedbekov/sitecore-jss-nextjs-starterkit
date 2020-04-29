@@ -47,7 +47,7 @@ exports.handler = async (event, context) => {
   }
 
   // Get the request URL
-  const { path } = event;
+  const path = ensureLeadingSlash(event.path);
   console.log('[request]', path);
 
   // Identify the file to render
@@ -120,3 +120,8 @@ exports.handler = async (event, context) => {
   //   callback
   // );
 };
+
+function ensureLeadingSlash(route) {
+  const formattedRoute = !route.startsWith('/') ? `/${route}` : route;
+  return formattedRoute;
+}
